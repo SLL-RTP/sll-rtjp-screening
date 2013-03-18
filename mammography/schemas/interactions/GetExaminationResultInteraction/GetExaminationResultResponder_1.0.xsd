@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements. See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership. Stockholms Läns Landsting licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License. You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied. See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->		
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:tns='urn:riv:screening:mammography:GetExaminationResultResponder:1' 
+  xmlns:core='urn:riv:screening:mammography:1' targetNamespace='urn:riv:screening:mammography:GetExaminationResultResponder:1' 
+  elementFormDefault='qualified' attributeFormDefault='unqualified' version='1.0'>
+  <xs:import schemaLocation='../../core_components/screening_mammography_1.0.xsd' namespace='urn:riv:screening:mammography:1' />
+  
+  <xs:element name='GetExaminationResult' type='tns:GetExaminationResultCollectionType'/>
+  <xs:element name='GetExaminationResultResponse' type='tns:GetExaminationResultResponseType' />
+  
+  <xs:complexType name='GetExaminationResultCollectionType'>
+    <xs:annotation>
+      <xs:documentation>
+        En kollektion av GetExaminationResult för att kunna hämta flera undersökningsresultat
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name='GetExaminationResult' type='tns:GetExaminationResultType' maxOccurs='unbounded' />
+      <xs:any namespace='##other' processContents='lax' minOccurs='0' maxOccurs='unbounded' />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GetExaminationResultType">
+    <xs:annotation>
+      <xs:documentation>
+          Anropsmeddelande för att hämta ett specifikt undersökningsresultat.
+          
+          patientid:
+            Identifiering av patient
+            
+          enhet:
+            Avser den enhet som håller Resultatet
+            
+          screeningId:
+            Unikt id för ett Resultat
+            
+      </xs:documentation></xs:annotation>
+    <xs:sequence>
+      <xs:element name="patientId" type="core:PatientIdType"/>
+      <xs:element name="enhet"/>
+      <!-- Skall det vara HSA-Id för e-tjänsteproducent. -->
+      <xs:element name="roundId" type="xs:string"/>
+      <!--  roundId  är unikt för denna screeningomgång  -->
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name='GetExaminationResultResponseType'>
+    <xs:sequence>
+      <xs:element name="ResultResponse" type="tns:ResultResponseType" minOccurs='0' maxOccurs='unbounded'/>
+      <xs:element name='ResultCode' type='tns:ResultCodeEnum' />
+      <xs:element name='comment' type='xs:string' minOccurs='0' />
+      <xs:any namespace='##other' processContents='lax' minOccurs='0' maxOccurs='unbounded' />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="ResultResponseType">
+    <xs:sequence>
+      <xs:element name="patientId" type="core:PatientIdType"/>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="address" type="core:AddressType"/>
+      <xs:element name="_sparrad" type="xs:boolean"/>
+      <xs:element name="_nästa_Screening" type="xs:date"/>
+      <xs:element name="screeningRound" type="core:ScreeningRoundType" minOccurs="1"
+        maxOccurs="1" />
+      <!-- screening omgång - om anropet innehåller unikt roundid se lär man väl endast få en screeningomgång som retur?? -->
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:simpleType name='ResultCodeEnum'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value='OK' />
+      <xs:enumeration value='ERROR' />
+      <xs:enumeration value='INFO' />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
