@@ -26,8 +26,6 @@
     namespace="urn:riv:screening:mammography:1"/>
 
   <xs:element name="GetExaminationResult" type="tns:GetExaminationResultCollectionType"/>
-  <xs:element name="GetExaminationResultResponse" type="tns:GetExaminationResultResponseType"/>
-
   <xs:complexType name="GetExaminationResultCollectionType">
     <xs:annotation>
       <xs:documentation>
@@ -40,7 +38,6 @@
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
-
   <xs:complexType name="GetExaminationResultType">
     <xs:annotation>
       <xs:documentation>
@@ -64,12 +61,13 @@
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
+  <xs:element name="GetExaminationResultResponse" type="tns:GetExaminationResultResponseType"/>
 
   <xs:complexType name="GetExaminationResultResponseType">
     <xs:sequence>
-      <xs:element name="ResultResponse" type="tns:ResultResponseType" minOccurs="0"
+      <xs:element name="resultResponse" type="tns:ResultResponseType" minOccurs="0"
         maxOccurs="unbounded"/>
-      <xs:element name="ResultCode" type="tns:ResultCodeEnum"/>
+      <xs:element name="resultCode" type="tns:ResultCodeEnum"/>
       <xs:element name="comment" type="xs:string" minOccurs="0"/>
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
@@ -80,10 +78,9 @@
       <xs:element name="patientId" type="core:PatientIdType"/>
       <xs:element name="name" type="xs:string"/>
       <xs:element name="address" type="core:AddressType"/>
-      <xs:element name="_sparrad" type="xs:boolean"/>
-      <xs:element name="_nästa_Screening" type="xs:date"/>
+      <xs:element name="blocked" type="xs:boolean"/>
+      <xs:element name="_nästa_Screening" type="xs:date" minOccurs="0"/>
       <xs:element name="screeningRound" type="core:ScreeningRoundType" minOccurs="1" maxOccurs="1"/>
-      <!-- screening omgång - om anropet innehåller unikt roundid se lär man väl endast få en screeningomgång som retur?? -->
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>

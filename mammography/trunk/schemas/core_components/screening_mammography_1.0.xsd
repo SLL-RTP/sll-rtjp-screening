@@ -30,10 +30,10 @@
           Identifierare för omgången.
         
         roundNumber: 
-          Vilken omgång io rdningen det avser.
+          Vilken omgång iordningen det avser.
           
         unit:
-          Hur identifierar vi en enhet? HSA-ID?
+          HSA-id för den vårdenhet som gjort undersökningen
 
         _kallelsedatum:
         
@@ -44,12 +44,12 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-		  <xs:element name="roundId" type="xs:string"/>
+      <xs:element name="roundId" type="xs:string"/>
       <xs:element name="roundNumber" type="xs:integer"/>
       <xs:element name="unit" type="xs:string"/>
-      <xs:element name="_kallelsedatum" type="xs:date"/>
+      <xs:element name="dateOfInvitation" type="xs:date"/>
       <xs:element name="statusOfParticipation" minOccurs="1" type="tns:StatusOfParticipationEnum"/>
-      <xs:element name="result" type="tns:ResultType"/>
+      <xs:element name="result" type="tns:ResultType" maxOccurs="1" minOccurs="0"/>
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
@@ -64,10 +64,9 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="screeningResult" type="tns:ScreeningType"
+      <xs:element name="screeningResult" type="tns:ScreeningType" minOccurs="0"/>
+      <xs:element name="completeRadiologicalResult" type="tns:CompleteRadiologicalType"
         minOccurs="0"/>
-      <xs:element name="completeRadiologicalResult"
-        type="tns:CompleteRadiologicalType" minOccurs="0"/>
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
@@ -92,7 +91,7 @@
       <xs:element name="patientDeclines" type="xs:boolean"/>
       <xs:element name="mammographyResult" type="tns:MalignancyResultType" minOccurs="1"/>
       <xs:element name="ultrasoundResult" type="tns:MalignancyResultType"/>
-      <xs:element name="selectedResult" type="tns:SelectedResultType" />
+      <xs:element name="selectedResult" type="tns:SelectedResultType"/>
       <xs:element name="_teknisktOmtag" type="xs:boolean"/>
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
@@ -129,12 +128,12 @@
 
   <xs:complexType name="AddressType">
     <xs:sequence>
-      <xs:element name="StreetName" type="xs:string"/>
-      <xs:element name="PostalNumber" type="xs:string"/>
-      <xs:element name="City" type="xs:string"/>
-      <xs:element name="_Län"/>
-      <xs:element name="_Kommun"/>
-      <xs:element name="_Församling"/>
+      <xs:element name="streetName" type="xs:string"/>
+      <xs:element name="postalNumber" type="xs:string"/>
+      <xs:element name="city" type="xs:string"/>
+      <xs:element name="state" type="xs:string"/>
+      <xs:element name="municipality" type="xs:string"/>
+      <xs:element name="parish" type="xs:string"/>
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
@@ -153,7 +152,7 @@
       </xs:enumeration>
       <xs:enumeration value="2">
         <xs:annotation>
-          <xs:documentation>Slekterad pga röntgenfynd</xs:documentation>
+          <xs:documentation>Selekterad pga röntgenfynd</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="3">
