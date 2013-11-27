@@ -50,15 +50,15 @@
                     <extraarg>-p</extraarg>
                     <extraarg>http://www.w3.org/2005/08/addressing=org.w3c.addressing.v1</extraarg>
                     <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:screening:mammography:GetExaminationResultResponder:1=se.riv.screening.mammography.getexaminationresultresponder.v1</extraarg>
+                    <extraarg>urn:riv:sll:screening:mammography:GetExaminationResultResponder:1=se.riv.sll.screening.mammography.getexaminationresultresponder.v1</extraarg>
                     <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:screening:mammography:GetExaminationResultInitiator:1=se.riv.screening.mammography.getexaminationresultinitiator.v1</extraarg>
+                    <extraarg>urn:riv:sll:screening:mammography:GetExaminationResultInitiator:1=se.riv.sll.screening.mammography.getexaminationresultinitiator.v1</extraarg>
                     <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:screening:mammography:GetExaminationResult:1:rivtabp21=se.riv.screening.mammography.getexaminationresult.v1.rivtabp21</extraarg>
+                    <extraarg>urn:riv:sll:screening:mammography:GetExaminationResult:1:rivtabp21=se.riv.sll.screening.mammography.getexaminationresult.v1.rivtabp21</extraarg>
                     <extraarg>-p</extraarg>
                     <extraarg>urn:riv:itintegration:registry:1=se.riv.itintegration.registry.v1</extraarg>
                     <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:screening:mammography:1=se.riv.screening.mammography.v1</extraarg>
+                    <extraarg>urn:riv:sll:screening:mammography:1=se.riv.screening.mammography.v1</extraarg>
                   </extraargs>
                 </wsdloption>
               </wsdlOptions>

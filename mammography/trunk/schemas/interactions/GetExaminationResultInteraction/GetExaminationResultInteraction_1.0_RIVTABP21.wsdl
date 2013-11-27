@@ -17,7 +17,7 @@
  specific language governing permissions and limitations
  under the License.
  -->		
-<wsdl:definitions name='GetExaminationResultInteraction' xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:tjsr='urn:riv:screening:mammography:GetExaminationResultResponder:1' xmlns:tjsi='urn:riv:screening:mammography:GetExaminationResultInitiator:1' xmlns:tns='urn:riv:screening:mammography:GetExaminationResult:1:rivtabp21' targetNamespace='urn:riv:screening:mammography:GetExaminationResult:1:rivtabp21' xmlns:itr='urn:riv:itintegration:registry:1'>
+<wsdl:definitions name='GetExaminationResultInteraction' xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:tjsr='urn:riv:sll:screening:mammography:GetExaminationResultResponder:1' xmlns:tjsi='urn:riv:sll:screening:mammography:GetExaminationResultInitiator:1' xmlns:tns='urn:riv:sll:screening:mammography:GetExaminationResult:1:rivtabp21' targetNamespace='urn:riv:sll:screening:mammography:GetExaminationResult:1:rivtabp21' xmlns:itr='urn:riv:itintegration:registry:1'>
   <!-- 
   <xs:annotation>
     <xs:documentation>
@@ -33,8 +33,8 @@
   </xs:annotation>
    -->
   <wsdl:types>
-    <xs:schema targetNamespace='urn:riv:screening:mammography:GetExaminationResult:1:rivtabp21'>
-      <xs:import schemaLocation='GetExaminationResultResponder_1.0.xsd' namespace='urn:riv:screening:mammography:GetExaminationResultResponder:1' />
+    <xs:schema targetNamespace='urn:riv:sll:screening:mammography:GetExaminationResult:1:rivtabp21'>
+      <xs:import schemaLocation='GetExaminationResultResponder_1.0.xsd' namespace='urn:riv:sll:screening:mammography:GetExaminationResultResponder:1' />
       <xs:import schemaLocation='../../core_components/itintegration_registry_1.0.xsd' namespace='urn:riv:itintegration:registry:1' />
     </xs:schema>
   </wsdl:types>
@@ -56,7 +56,7 @@
   <wsdl:binding name='GetExaminationResultResponderBinding' type='tns:GetExaminationResultResponderInterface'>
     <soap:binding style='document' transport='http://schemas.xmlsoap.org/soap/http' />
     <wsdl:operation name='GetExaminationResult'>
-      <soap:operation soapAction='urn:riv:screening:mammography:GetExaminationResultResponder:1:GetExaminationResult' style='document' />
+      <soap:operation soapAction='urn:riv:sll:screening:mammography:GetExaminationResultResponder:1:GetExaminationResult' style='document' />
       <wsdl:input>
         <soap:header use='literal' message='tns:GetExaminationResultRequest' part='LogicalAddress' />
         <soap:body use='literal' parts='parameters' />
