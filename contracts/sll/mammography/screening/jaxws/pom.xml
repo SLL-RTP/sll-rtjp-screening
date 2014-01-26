@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>se.rivta.tools</groupId>
-  <artifactId>screening-mammography-schemas</artifactId>
+  <artifactId>sll-mammography-screening-schemas</artifactId>
   <packaging>jar</packaging>
-  <version>1</version>
-  <name>screening-mammography-schemas</name>
+  <version>1.0-SNAPSHOT</version>
+  <name>sll-mammography-screening-schemas</name>
   <url>http://maven.apache.org</url>
   <properties>
     <schema.path>${basedir}/../schemas</schema.path>
@@ -42,7 +42,10 @@
             <id>generate-sources</id>
             <phase>generate-sources</phase>
             <configuration>
-              <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
+            <fork>once</fork>
+            <additionalJvmArgs>-Dfile.encoding=UTF-8</additionalJvmArgs>
+            <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
+            <validate>true</validate>
               <wsdlOptions>
                 <wsdloption>
                   <wsdl>${schema.path}/interactions/GetExaminationResultInteraction/GetExaminationResultInteraction_1.0_RIVTABP21.wsdl</wsdl>
@@ -50,15 +53,15 @@
                     <extraarg>-p</extraarg>
                     <extraarg>http://www.w3.org/2005/08/addressing=org.w3c.addressing.v1</extraarg>
                     <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:sll:screening:mammography:GetExaminationResultResponder:1=se.riv.sll.screening.mammography.getexaminationresultresponder.v1</extraarg>
+                    <extraarg>urn:riv:sll:mammography:screening:1=se.riv.sll.mammography.screening.v1</extraarg>
                     <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:sll:screening:mammography:GetExaminationResultInitiator:1=se.riv.sll.screening.mammography.getexaminationresultinitiator.v1</extraarg>
+                    <extraarg>urn:riv:sll:mammography:screening:GetExaminationResultResponder:1=se.riv.sll.mammography.screening.getexaminationresultresponder.v1</extraarg>
                     <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:sll:screening:mammography:GetExaminationResult:1:rivtabp21=se.riv.sll.screening.mammography.getexaminationresult.v1.rivtabp21</extraarg>
+                    <extraarg>urn:riv:sll:mammography:screening:GetExaminationResultInitiator:1=se.riv.sll.mammography.screening.getexaminationresultinitiator.v1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:sll:mammography:screening:GetExaminationResult:1:rivtabp21=se.riv.sll.mammography.screening.getexaminationresult.v1.rivtabp21</extraarg>
                     <extraarg>-p</extraarg>
                     <extraarg>urn:riv:itintegration:registry:1=se.riv.itintegration.registry.v1</extraarg>
-                    <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:sll:screening:mammography:1=se.riv.screening.mammography.v1</extraarg>
                   </extraargs>
                 </wsdloption>
               </wsdlOptions>

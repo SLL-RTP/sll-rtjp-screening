@@ -18,12 +18,12 @@
  under the License.
  -->		
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:tns="urn:riv:sll:screening:mammography:GetExaminationResultResponder:1"
-  xmlns:core="urn:riv:sll:screening:mammography:1"
-  targetNamespace="urn:riv:sll:screening:mammography:GetExaminationResultResponder:1"
+  xmlns:tns="urn:riv:sll:mammography:screening:GetExaminationResultResponder:1"
+  xmlns:core="urn:riv:sll:mammography:screening:1"
+  targetNamespace="urn:riv:sll:mammography:screening:GetExaminationResultResponder:1"
   elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
-  <xs:import schemaLocation="../../core_components/screening_mammography_1.0.xsd"
-    namespace="urn:riv:sll:screening:mammography:1"/>
+  <xs:import schemaLocation="../../core_components/mammography_screening_1.0.xsd"
+    namespace="urn:riv:sll:mammography:screening:1"/>
 
   <xs:element name="GetExaminationResult" type="tns:GetExaminationResultCollectionType"/>
   <xs:complexType name="GetExaminationResultCollectionType">

@@ -17,8 +17,8 @@
  specific language governing permissions and limitations
  under the License.
  -->		
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:riv:sll:screening:mammography:1"
-  targetNamespace="urn:riv:sll:screening:mammography:1" elementFormDefault="qualified"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:riv:sll:mammography:screening:1"
+  targetNamespace="urn:riv:sll:mammography:screening:1" elementFormDefault="qualified"
   attributeFormDefault="unqualified" version="1.0">
 
   <xs:complexType name="ScreeningRoundType">
