@@ -23,14 +23,14 @@
 
   <xs:complexType name="ScreeningRoundType">
     <xs:annotation>
-      <xs:documentation>
+      <xs:documentation  xml:lang="sv">
         Avser en screeningomgång.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="roundId" type="xs:string">
         <xs:annotation>
-          <xs:documentation xml:lang="sv">Identifierare för omgången.</xs:documentation>
+          <xs:documentation xml:lang="sv">Identifierare för omgången. tex RemissId</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="roundNumber" type="xs:integer">
@@ -38,20 +38,14 @@
           <xs:documentation xml:lang="sv">Vilken omgång iordningen det avser.</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="dateOfInvitation" type="tns:DateType">
+        <xs:annotation>
+          <xs:documentation  xml:lang="sv">Kallelsedatum</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="unit" type="tns:HSAIdType">
         <xs:annotation>
           <xs:documentation xml:lang="sv">HSA-id för den vårdenhet som gjort undersökningen</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="dateOfInvitation" type="tns:DateType">
-        <xs:annotation>
-          <xs:documentation>Kallelsedatum</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="participationStatus" type="tns:ParticipationStatusEnum" minOccurs="1">
-        <xs:annotation>
-          <xs:documentation>Har patienten deltagit eller ej i undersökningen och om ej, vad var orsaken.
-            Note: Om patient ej deltagit kan resultaten vara 'null'</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="result" type="tns:ResultType" maxOccurs="1" minOccurs="0"/>
@@ -61,17 +55,15 @@
 
   <xs:complexType name="ResultType">
     <xs:annotation>
-      <xs:documentation>
-        En hållare med resultat för en undersökning.
-      </xs:documentation>
+      <xs:documentation  xml:lang="sv">Resultat för en omgång.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="screeningResult" type="tns:ScreeningType" minOccurs="1">
+      <xs:element name="screeningResult" type="tns:ScreeningType">
         <xs:annotation>
           <xs:documentation xml:lang="sv">Screeningundersökning  (RIS:signerad mammografiscreening) </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="completeRadiologicalResult" type="tns:CompleteRadiologicalType" minOccurs="0">
+      <xs:element name="radiologicalResult" type="tns:RadiologicalType" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation xml:lang="sv">Fullständig radiologiskundersökning (RIS:signerad klinisk radiologisk mammografiundersökning)</xs:documentation>
         </xs:annotation>
@@ -92,9 +84,29 @@
           <xs:documentation xml:lang="sv">Datum för undersökningen</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="result" type="tns:ScreeningResultType" minOccurs="1">
+      <xs:element name="municipality" type="xs:string">
         <xs:annotation>
-          <xs:documentation xml:lang="sv">resultat</xs:documentation>
+          <xs:documentation xml:lang="sv">Län/Kommun/Församling vid screening tilfället</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="participationStatus" type="tns:ParticipationStatusEnum">
+        <xs:annotation>
+          <xs:documentation  xml:lang="sv">Har patienten deltagit eller ej i undersökningen och om ej, vad var orsaken.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="screeningCodes" type="tns:MalignancyResultType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Mammokoder för screeningundersökningen</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="selectionType" type="tns:SelectionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Orsak till varför patienten valts ut till undersökningen</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="opinionResult" type="tns:OpinionEnum" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Bedömning</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="dens" type="xs:boolean" minOccurs="0">
@@ -102,12 +114,17 @@
           <xs:documentation xml:lang="sv">true = hög brösttäthet</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="examiner1" type="tns:ExaminerType" minOccurs="1">
+      <xs:element name="technicalRetake" type="xs:boolean" minOccurs="1" default="false">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Tekniskt omtag</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="examiner1" type="tns:ExaminerType" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="sv">Granskare 1 av resultatet</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="examiner2" type="tns:ExaminerType" minOccurs="1">
+      <xs:element name="examiner2" type="tns:ExaminerType" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="sv">Granskare 2 av resultatet</xs:documentation>
         </xs:annotation>
@@ -116,18 +133,42 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="CompleteRadiologicalType">
+  <xs:complexType name="RadiologicalType">
     <xs:sequence>
-      <xs:element name="examinationId" type="xs:string"/>
-      <xs:element name="dateOfExamination" type="tns:DateType"/>
-      <xs:element name="patientDeclines" type="xs:boolean"/>
-      <xs:element name="mammographyResult" type="tns:MalignancyResultType" minOccurs="1"/>
-      <xs:element name="ultrasoundResult" type="tns:MalignancyResultType"/>
-      <xs:element name="selectedResult" type="tns:SelectedResultType"/>
+      <xs:element name="examinationId" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Id för undersökningen</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dateOfExamination" type="tns:DateType">
+      <xs:annotation>
+        <xs:documentation xml:lang="sv">Datum då undersökningen genomfördes.</xs:documentation>
+      </xs:annotation>
+      </xs:element>
+      <xs:element name="patientDeclines" type="xs:boolean" minOccurs="1" default="false">
+      <xs:annotation>
+        <xs:documentation xml:lang="sv">Har patienten avböjt att deltaga i undersökningen.</xs:documentation>
+      </xs:annotation>
+      </xs:element>
+      <xs:element name="examinationCode" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Socialstyrelsens undersökningskod organ + metod</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="examinationName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Undersökningens namn i klartext</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="diagnosticCodes" type="tns:MalignancyResultType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Fyndkoder för undersökningen</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
-
+ 
   <xs:complexType name="MalignancyResultType">
     <xs:sequence>
       <xs:element name="resultRightBreast" type="tns:MalignancyEnum"/>
@@ -135,17 +176,10 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="ScreeningResultType">
+  <xs:complexType name="SelectionType">
     <xs:sequence>
-      <xs:element name="resultRightBreast" type="tns:ScreeningResultEnum"/>
-      <xs:element name="resultLeftBreast" type="tns:ScreeningResultEnum"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="SelectedResultType">
-    <xs:sequence>
-      <xs:element name="resultRightBreast" type="tns:SelectedResultEnum"/>
-      <xs:element name="resultLeftBreast" type="tns:SelectedResultEnum"/>
+      <xs:element name="resultRightBreast" type="tns:SelectionTypeEnum"/>
+      <xs:element name="resultLeftBreast" type="tns:SelectionTypeEnum"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -159,41 +193,56 @@
 
   <xs:complexType name="AddressType">
     <xs:sequence>
-      <xs:element name="streetName" type="xs:string"/>
-      <xs:element name="postalNumber" type="xs:string"/>
-      <xs:element name="city" type="xs:string"/>
+      <xs:element name="streetName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Gatuadress</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="postalNumber" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Postnummer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="city" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Stad</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="state" type="xs:string"/>
-      <xs:element name="municipality" type="xs:string"/>
-      <xs:element name="parish" type="xs:string"/>
+      <xs:element name="municipality" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Län/Kommun</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="parish" type="xs:string">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Församling</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:simpleType name="ScreeningResultEnum">
+  <xs:simpleType name="OpinionEnum">
     <xs:restriction base="xs:int">
       <xs:enumeration value="0">
         <xs:annotation>
-          <xs:documentation>Ingen undersökning gjord</xs:documentation>
+          <xs:documentation xml:lang="sv">Frisk</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="1">
         <xs:annotation>
-          <xs:documentation>Ej Selekterad</xs:documentation>
+          <xs:documentation xml:lang="sv">Diskussion</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="2">
         <xs:annotation>
-          <xs:documentation>Selekterad pga röntgenfynd</xs:documentation>
+          <xs:documentation xml:lang="sv">Selektion</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="3">
         <xs:annotation>
-          <xs:documentation>Selekterad pga klinisktfynd</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="4">
-        <xs:annotation>
-          <xs:documentation>Tekniskt omtag</xs:documentation>
+          <xs:documentation xml:lang="sv">Tekniskt omtag</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
@@ -203,52 +252,47 @@
     <xs:restriction base="xs:int">
       <xs:enumeration value="0">
         <xs:annotation>
-          <xs:documentation>Ingen undersökning gjord</xs:documentation>
+          <xs:documentation xml:lang="sv">Ingen undersökning gjord</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="1">
         <xs:annotation>
-          <xs:documentation>Normalt</xs:documentation>
+          <xs:documentation xml:lang="sv">Normalt</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="2">
         <xs:annotation>
-          <xs:documentation>Benignt (godartat) fynd</xs:documentation>
+          <xs:documentation xml:lang="sv">Benignt (godartat) fynd</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="3">
         <xs:annotation>
-          <xs:documentation>Möjlig malignitet</xs:documentation>
+          <xs:documentation xml:lang="sv">Möjlig malignitet</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="4">
         <xs:annotation>
-          <xs:documentation>Trolig malignitet</xs:documentation>
+          <xs:documentation xml:lang="sv">Trolig malignitet</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="5">
         <xs:annotation>
-          <xs:documentation>Klar malignitet</xs:documentation>
+          <xs:documentation xml:lang="sv">Klar malignitet</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="SelectedResultEnum">
+  <xs:simpleType name="SelectionTypeEnum">
     <xs:restriction base="xs:int">
       <xs:enumeration value="0">
         <xs:annotation>
-          <xs:documentation>Nej</xs:documentation>
+          <xs:documentation xml:lang="sv">Ja, pga röntgenfynd</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="1">
         <xs:annotation>
-          <xs:documentation>Ja, pga röntgenfynd</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="2">
-        <xs:annotation>
-          <xs:documentation>Ja, pga kliniskt fynd</xs:documentation>
+          <xs:documentation  xml:lang="sv">Ja, pga kliniskt fynd</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
@@ -256,15 +300,26 @@
 
   <xs:simpleType name="ParticipationStatusEnum">
     <xs:restriction base="xs:string">
-      <xs:annotation>
-        <xs:documentation xml:lang="sv">
-          A =aktiv vägrare, P=passiv vägrare, D=deltagit, O=oanträffbar
-          <xs:enumeration value="A"/>
-          <xs:enumeration value="P"/>
-          <xs:enumeration value="D"/>
-          <xs:enumeration value="O"/>
-        </xs:documentation>
+      <xs:enumeration value="A">
+        <xs:annotation>
+        <xs:documentation xml:lang="sv">Aktiv vägrare</xs:documentation>
       </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="P">
+        <xs:annotation>
+        <xs:documentation xml:lang="sv">Passiv vägrare</xs:documentation>
+      </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="D">
+        <xs:annotation>
+        <xs:documentation xml:lang="sv">Deltagit</xs:documentation>
+      </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="O">
+        <xs:annotation>
+        <xs:documentation xml:lang="sv">Oanträffbar</xs:documentation>
+      </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
@@ -277,7 +332,7 @@
 
   <xs:complexType name="DatePeriodType">
     <xs:annotation>
-      <xs:documentation>
+      <xs:documentation  xml:lang="sv">
         Används för att specificera ett datumintervall
         med hjälp av start- och slutdatum.
         
@@ -293,16 +348,17 @@
     </xs:sequence>
   </xs:complexType>
 
-  <!-- YYYYMMDD -->
   <xs:simpleType name="DateType">
     <xs:annotation>
-      <xs:documentation/>
+      <xs:documentation>
+        Dates are always in the format "YYYYMMDD", which corresponds to the ISO 8824-compliant format description "YYYYMMDD".
+      </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:pattern value="(19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])"/>
     </xs:restriction>
   </xs:simpleType>
-
+  
   <xs:simpleType name="HSAIdType">
     <xs:restriction base="xs:string"/>
   </xs:simpleType>
@@ -311,23 +367,27 @@
     <xs:annotation>
       <xs:documentation>
         id
-          Patientens id.
+        Personal identity has the following format depending on the type
+        - personnummer: yyyymmddnnnn
+        - samordningsnummer: yyyymmddnnnn
+        - reservnummer: Is not standardized, there are several different variants.
         type
-          Typ av id. Bland tillåtna typer för finns: 
-            personnummer = '1.2.752.129.2.1.3.1' 
-            samordningsnummer = '1.2.752.129.2.1.3.3' 
-            reservnummer SLL = '1.2.752.97.3.1.3'
+        Type av identification.
+        - personnummer = '1.2.752.129.2.1.3.1', se http://sv.wikipedia.org/wiki/Personnummer#Sverige
+        - samordningsnummer = '1.2.752.129.2.1.3.3', se http://sv.wikipedia.org/wiki/Samordningsnummer
+        - reservnummer SLL = '1.2.752.97.3.1.3', se http://sv.wikipedia.org/wiki/Reservnummer
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="id" type="xs:string"/>
       <xs:element name="type" type="xs:string"/>
+      <xs:any namespace='##other' processContents='lax' minOccurs='0' maxOccurs='unbounded' />
     </xs:sequence>
   </xs:complexType>
-
+  
   <xs:complexType name="TimePeriodType">
     <xs:annotation>
-      <xs:documentation>
+      <xs:documentation  xml:lang="sv">
         Används för att specificera ett datumintervall
         med hjälp av start- och slutdatum.
         

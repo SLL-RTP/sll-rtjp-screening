@@ -45,16 +45,12 @@
           
           patientid:
             Identifiering av patient
-            
-          careUnitId:
-            Avser den enhet som håller Resultatet
-            
+ 
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       
       <xs:element name='patientId' type='core:PersonIdType' />
-      <xs:element name="careUnitHSAid" type="core:HSAIdType" />
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
@@ -77,8 +73,16 @@
           <xs:documentation xml:lang="sv">patient finns i spärrlistan</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="nextScreeningDate" type="core:DateType" minOccurs="0"/>
-      <xs:element name="screeningRound" type="core:ScreeningRoundType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="nextScreeningDate" type="core:DateType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Datum för nästa planerade screening tillfälle</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="screeningRound" type="core:ScreeningRoundType" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Screening omgång</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
