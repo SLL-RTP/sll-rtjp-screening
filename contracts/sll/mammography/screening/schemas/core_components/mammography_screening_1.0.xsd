@@ -102,7 +102,7 @@
       </xs:element>
       <xs:element name="selectionType" type="tns:SelectionType" minOccurs="0">
         <xs:annotation>
-          <xs:documentation xml:lang="sv">Orsak till varför patienten valts ut till undersökningen</xs:documentation>
+          <xs:documentation xml:lang="sv">Orsak till varför patienten valts ut till vidare undersökning.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="opinionResult" type="tns:OpinionEnum" minOccurs="0">
@@ -117,7 +117,8 @@
       </xs:element>
       <xs:element name="technicalRetake" type="xs:boolean" minOccurs="1" default="false">
         <xs:annotation>
-          <xs:documentation xml:lang="sv">Tekniskt omtag</xs:documentation>
+          <xs:documentation xml:lang="sv">"true" om detta är ett tekniskt omtag, dvs. bilder från förra undersökningen gick inte att bedöma. 
+          Detta screeningResult ersätter då ett gammalt med samma roundId.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="examiner1" type="tns:ExaminerType" minOccurs="0">
