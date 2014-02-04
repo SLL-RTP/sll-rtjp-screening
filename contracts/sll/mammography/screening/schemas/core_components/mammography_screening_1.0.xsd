@@ -30,12 +30,12 @@
     <xs:sequence>
       <xs:element name="roundId" type="xs:string">
         <xs:annotation>
-          <xs:documentation xml:lang="sv">Identifierare för omgången. tex RemissId</xs:documentation>
+          <xs:documentation xml:lang="sv">Identifierare för omgången, t.ex. RemissId</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="roundNumber" type="xs:integer">
         <xs:annotation>
-          <xs:documentation xml:lang="sv">Vilken omgång iordningen det avser.</xs:documentation>
+          <xs:documentation xml:lang="sv">Vilken omgång i ordningen det avser.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="dateOfInvitation" type="tns:DateType">
@@ -60,12 +60,13 @@
     <xs:sequence>
       <xs:element name="screeningResult" type="tns:ScreeningType">
         <xs:annotation>
-          <xs:documentation xml:lang="sv">Screeningundersökning  (RIS:signerad mammografiscreening) </xs:documentation>
+          <xs:documentation xml:lang="sv">Screeningundersökning (Sectra RIS: signerad mammografiscreening) </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="radiologicalResult" type="tns:RadiologicalType" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
-          <xs:documentation xml:lang="sv">Fullständig radiologiskundersökning (RIS:signerad klinisk radiologisk mammografiundersökning)</xs:documentation>
+          <xs:documentation xml:lang="sv">Fullständig radiologiskundersökning (Sectra RIS: signerad klinisk radiologisk mammografiundersökning).
+          Det kommer en instans per undersökningstyp (66200 Tvåbilds-mammo, 93800 Utlraljud bröstkörtlar osv).</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
@@ -86,7 +87,7 @@
       </xs:element>
       <xs:element name="municipality" type="xs:string">
         <xs:annotation>
-          <xs:documentation xml:lang="sv">Län/Kommun/Församling vid screening tilfället</xs:documentation>
+          <xs:documentation xml:lang="sv">Län/kommun/församling vid screeningtilfället</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="participationStatus" type="tns:ParticipationStatusEnum">
@@ -152,7 +153,23 @@
       </xs:element>
       <xs:element name="examinationCode" type="xs:string">
         <xs:annotation>
-          <xs:documentation xml:lang="sv">Socialstyrelsens undersökningskod organ + metod</xs:documentation>
+          <xs:documentation xml:lang="sv">
+            Socialstyrelsens undersökningskod organ + metod:
+            examinationName                       examinationCode
+            TEKNISKT OMTAG                        66058
+            Tvåbilds-mammo                        66200
+            Punktion i palpation                  66558
+            Grovnålsbiopsi                        93850
+            Stereotaktisk punktion                66500
+            Ultraljudsledd punktion               93850
+            Punktionsmetod saknas                 60000
+            Mammografi, fullständig undersökning  66000
+            Ultraljud bröstkörtlar                93800
+            Operation, undersökningstyp           HA
+            PrepRTG                               -
+            Palpation                             66023
+            Selekterad mammografi                 66059
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="examinationName" type="xs:string">
