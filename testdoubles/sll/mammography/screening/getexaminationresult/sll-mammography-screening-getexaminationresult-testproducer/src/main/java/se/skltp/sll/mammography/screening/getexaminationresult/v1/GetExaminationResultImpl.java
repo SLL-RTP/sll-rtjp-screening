@@ -34,15 +34,15 @@ import se.riv.sll.mammography.screening.getexaminationresultresponder.v1.GetExam
 import se.riv.sll.mammography.screening.getexaminationresultresponder.v1.GetExaminationResultType;
 import se.riv.sll.mammography.screening.getexaminationresultresponder.v1.ResultResponseType;
 import se.riv.sll.mammography.screening.v1.AddressType;
-import se.riv.sll.mammography.screening.v1.CompleteRadiologicalType;
 import se.riv.sll.mammography.screening.v1.ExaminerType;
 import se.riv.sll.mammography.screening.v1.MalignancyResultType;
+import se.riv.sll.mammography.screening.v1.ParticipationStatusEnum;
 import se.riv.sll.mammography.screening.v1.PersonIdType;
+import se.riv.sll.mammography.screening.v1.RadiologicalType;
 import se.riv.sll.mammography.screening.v1.ResultType;
-import se.riv.sll.mammography.screening.v1.ScreeningResultType;
 import se.riv.sll.mammography.screening.v1.ScreeningRoundType;
 import se.riv.sll.mammography.screening.v1.ScreeningType;
-import se.riv.sll.mammography.screening.v1.SelectedResultType;
+import se.riv.sll.mammography.screening.v1.SelectionType;
 
 @WebService
 public class GetExaminationResultImpl implements GetExaminationResultResponderInterface {
@@ -77,7 +77,9 @@ public class GetExaminationResultImpl implements GetExaminationResultResponderIn
 			AddressType address = new AddressType();
 			address.setStreetName("Bättringsvägen 7k");
 			address.setCity("Stockholm");
-			address.setMunicipality("");
+			address.setMunicipality("01");
+			address.setState("01");
+			address.setParish("01");
 			address.setPostalNumber("123 45");
 			response.setAddress(address);
 			response.setBlocked(false);
@@ -93,9 +95,8 @@ public class GetExaminationResultImpl implements GetExaminationResultResponderIn
 		ScreeningRoundType result = new ScreeningRoundType();
 		result.setRoundId("roundid #" + randInt(12, 45));
 		result.setRoundNumber(randBigInt(1, 5));
-		result.setUnit("unit A");
 		result.setDateOfInvitation("20140107");
-		result.setParticipationStatus("D");
+		result.setUnit("unit A");
 		result.setResult(createRandomResult());
 		return result;
 	}
@@ -103,14 +104,51 @@ public class GetExaminationResultImpl implements GetExaminationResultResponderIn
 	private ResultType createRandomResult() {
 		ResultType result = new ResultType();
 		// screeningResult
+		ScreeningType screening = createRandomScreening();
+		result.setScreeningResult(screening);
+		createRandomRadiologicalResult(result.getRadiologicalResult());
+		
+		
+
+		return result;
+	}
+
+	private void createRandomRadiologicalResult(List<RadiologicalType> radiologicalResult) {
+		int iter = randInt(1, 3);
+		for (int i = 0; i < iter; i++) {
+			RadiologicalType radiological = new RadiologicalType();
+			radiological.setDateOfExamination("Id" + i);
+			radiological.setDateOfExamination("2014011" + i);
+			radiological.setPatientDeclines(rand.nextBoolean());
+			radiological.setExaminationCode("93850");
+			radiological.setExaminationName("Ultraljudsledd punktion");
+			MalignancyResultType mResult = new MalignancyResultType();
+			mResult.setResultLeftBreast(randInt(0, 5));
+			mResult.setResultRightBreast(randInt(0, 5));
+			radiological.setDiagnosticCodes(mResult);
+			radiologicalResult.add(radiological);
+			
+		}
+		
+	}
+
+	private ScreeningType createRandomScreening() {
 		ScreeningType screening = new ScreeningType();
 		screening.setExaminationId("Id " + randInt(1, 5));
 		screening.setDateOfExamination("20140120");
-		ScreeningResultType result2 = new ScreeningResultType();
-		result2.setResultLeftBreast(randInt(0, 4));
-		result2.setResultRightBreast(randInt(0, 4));
-		screening.setResult(result2);
+		screening.setMunicipality("01");
+		screening.setParticipationStatus(ParticipationStatusEnum.D);
+		MalignancyResultType mResult = new MalignancyResultType();
+		mResult.setResultLeftBreast(randInt(0, 5));
+		mResult.setResultRightBreast(randInt(0, 5));
+		screening.setScreeningCodes(mResult);
+		SelectionType selection = new SelectionType();
+		selection.setResultLeftBreast(randInt(0, 1));
+		selection.setResultRightBreast(randInt(0, 1));
+		screening.setSelectionType(selection);
+		screening.setOpinionResult(randInt(0, 3));
 		screening.setDens(rand.nextBoolean());
+		screening.setTechnicalRetake(rand.nextBoolean());
 		ExaminerType examiner1 = new ExaminerType();
 		examiner1.setId("#" + randInt(1, 10));
 		examiner1.setName("Examiner " + examiner1.getId());
@@ -119,26 +157,7 @@ public class GetExaminationResultImpl implements GetExaminationResultResponderIn
 		examiner2.setId("#" + randInt(11, 20));
 		examiner2.setName("Examiner " + examiner2.getId());
 		screening.setExaminer2(examiner2);
-		// completeRadiologicalResponse
-		CompleteRadiologicalType crResult = new CompleteRadiologicalType();
-		crResult.setExaminationId("Id " + randInt(1, 10));
-		crResult.setDateOfExamination("20140120");
-		crResult.setPatientDeclines(false);
-		MalignancyResultType mammographyResult = new MalignancyResultType();
-		mammographyResult.setResultLeftBreast(randInt(0, 5));
-		mammographyResult.setResultRightBreast(randInt(0, 5));
-		crResult.setMammographyResult(mammographyResult);
-		MalignancyResultType ultrasoundResult = new MalignancyResultType();
-		ultrasoundResult.setResultLeftBreast(randInt(0, 5));
-		ultrasoundResult.setResultRightBreast(randInt(0, 5));
-		crResult.setUltrasoundResult(ultrasoundResult);
-		SelectedResultType selectedResult = new SelectedResultType();
-		selectedResult.setResultLeftBreast(randInt(1, 2));
-		selectedResult.setResultRightBreast(randInt(1, 2));
-		crResult.setSelectedResult(selectedResult);
-		result.setCompleteRadiologicalResult(crResult);
-
-		return result;
+		return screening;
 	}
 
 	private int randInt(int min, int max) {
