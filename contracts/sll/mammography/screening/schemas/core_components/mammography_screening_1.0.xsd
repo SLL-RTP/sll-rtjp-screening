@@ -305,10 +305,15 @@
     <xs:restriction base="xs:int">
       <xs:enumeration value="0">
         <xs:annotation>
-          <xs:documentation xml:lang="sv">Ja, pga röntgenfynd</xs:documentation>
+          <xs:documentation xml:lang="sv">Ingen selektion</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="sv">Ja, pga röntgenfynd</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="2">
         <xs:annotation>
           <xs:documentation  xml:lang="sv">Ja, pga kliniskt fynd</xs:documentation>
         </xs:annotation>

@@ -143,8 +143,8 @@ public class GetExaminationResultImpl implements GetExaminationResultResponderIn
 		mResult.setResultRightBreast(randInt(0, 5));
 		screening.setScreeningCodes(mResult);
 		SelectionType selection = new SelectionType();
-		selection.setResultLeftBreast(randInt(0, 1));
-		selection.setResultRightBreast(randInt(0, 1));
+		selection.setResultLeftBreast(randInt(0, 2));
+		selection.setResultRightBreast(randInt(0, 2));
 		screening.setSelectionType(selection);
 		screening.setOpinionResult(randInt(0, 3));
 		screening.setDens(rand.nextBoolean());
