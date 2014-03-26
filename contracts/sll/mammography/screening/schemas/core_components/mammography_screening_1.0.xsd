@@ -48,7 +48,7 @@
           <xs:documentation xml:lang="sv">HSA-id för den vårdenhet som gjort undersökningen</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="result" type="tns:ResultType" maxOccurs="1" minOccurs="0"/>
+      <xs:element name="result" type="tns:ResultType" minOccurs="0"/>
       <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
@@ -85,7 +85,7 @@
           <xs:documentation xml:lang="sv">Datum för undersökningen</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="municipality" type="xs:string">
+      <xs:element name="municipality" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="sv">Län/kommun/församling vid screeningtilfället</xs:documentation>
         </xs:annotation>
@@ -115,7 +115,7 @@
           <xs:documentation xml:lang="sv">true = hög brösttäthet</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="technicalRetake" type="xs:boolean" minOccurs="1" default="false">
+      <xs:element name="technicalRetake" type="xs:boolean" default="false">
         <xs:annotation>
           <xs:documentation xml:lang="sv">"true" om detta är ett tekniskt omtag, dvs. bilder från förra undersökningen gick inte att bedöma. 
           Detta screeningResult ersätter då ett gammalt med samma roundId.</xs:documentation>
@@ -147,7 +147,7 @@
         <xs:documentation xml:lang="sv">Datum då undersökningen genomfördes.</xs:documentation>
       </xs:annotation>
       </xs:element>
-      <xs:element name="patientDeclines" type="xs:boolean" minOccurs="1" default="false">
+      <xs:element name="patientDeclines" type="xs:boolean" default="false">
       <xs:annotation>
         <xs:documentation xml:lang="sv">Har patienten avböjt att deltaga i undersökningen.</xs:documentation>
       </xs:annotation>
@@ -189,15 +189,15 @@
  
   <xs:complexType name="MalignancyResultType">
     <xs:sequence>
-      <xs:element name="resultRightBreast" type="tns:MalignancyEnum"/>
-      <xs:element name="resultLeftBreast" type="tns:MalignancyEnum"/>
+      <xs:element name="resultRightBreast" type="tns:MalignancyEnum" minOccurs="0"/>
+      <xs:element name="resultLeftBreast" type="tns:MalignancyEnum" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="SelectionType">
     <xs:sequence>
-      <xs:element name="resultRightBreast" type="tns:SelectionTypeEnum"/>
-      <xs:element name="resultLeftBreast" type="tns:SelectionTypeEnum"/>
+      <xs:element name="resultRightBreast" type="tns:SelectionTypeEnum" minOccurs="0"/>
+      <xs:element name="resultLeftBreast" type="tns:SelectionTypeEnum" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -211,28 +211,28 @@
 
   <xs:complexType name="AddressType">
     <xs:sequence>
-      <xs:element name="streetName" type="xs:string">
+      <xs:element name="streetName" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="sv">Gatuadress</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="postalNumber" type="xs:string">
+      <xs:element name="postalNumber" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="sv">Postnummer</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="city" type="xs:string">
+      <xs:element name="city" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="sv">Stad</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="state" type="xs:string"/>
+      <xs:element name="state" type="xs:string" minOccurs="0"/>
       <xs:element name="municipality" type="xs:string">
         <xs:annotation>
           <xs:documentation xml:lang="sv">Län/Kommun</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="parish" type="xs:string">
+      <xs:element name="parish" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="sv">Församling</xs:documentation>
         </xs:annotation>
