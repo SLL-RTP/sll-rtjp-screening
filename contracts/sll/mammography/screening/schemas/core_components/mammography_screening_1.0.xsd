@@ -227,7 +227,7 @@
         </xs:annotation>
       </xs:element>
       <xs:element name="state" type="xs:string" minOccurs="0"/>
-      <xs:element name="municipality" type="xs:string">
+      <xs:element name="municipality" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="sv">Län/Kommun</xs:documentation>
         </xs:annotation>
